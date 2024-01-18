@@ -9,19 +9,16 @@ const Item = ({ id, note, date, time, delData, setUpdate }) => {
     setEditMode(!isEditMode)
   }
 
-  // let viewMode = {};
-  // let editMode = {};
-  // if (isEditMode) {
-  //   viewMode.display = 'none';
-  // } else {
-  //   editMode.display = 'none';
-  // }
 
-  const handleUpdatedDone = (event) => {
+  // useEffect(() => {     
+  //   localStorage.setItem(Item.id, JSON.stringify(Item));
+  // }, []);
+
+  function handleUpdatedDone(event) {
     if (event.key === 'Enter') {
       setEditMode(false);
     }
-  };
+  }
 
   function delItem() {
     delData(function (prev) {
@@ -48,7 +45,7 @@ const Item = ({ id, note, date, time, delData, setUpdate }) => {
         Edit
       </button>
       <button onClick={delItem} className="del_btn">
-        DELECT
+        DELETE
       </button>
       </div>
     </div>

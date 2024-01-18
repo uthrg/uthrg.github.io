@@ -4,7 +4,14 @@ import "./index.css";
 import React, { useState } from "react";
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const newItem = JSON.parse(localStorage.getItem('id'));
+
+  const [data, setData] = useState(newItem);
+  
+
+  // useEffect(() => {     
+  //   localStorage.setItem(data.id, JSON.stringify(data));
+  // }, [data]);
 
   const setUpdate = (updatedNote, id) => {
     // update state
@@ -24,6 +31,6 @@ const Home = () => {
       <List listData={data} delData={setData} setUpdate={setUpdate}/>
     </div>
   );
-};
+}; 
 
 export default Home;
