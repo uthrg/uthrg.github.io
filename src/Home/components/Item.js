@@ -31,7 +31,11 @@ const Item = ({ id, note, date, time, delData, setUpdate }) => {
       <div>
         {
           isEditMode ? <input defaultValue={note} 
-          onChange={(e) => setUpdate(e.target.value, id)}
+          onChange={(e) => {
+            console.log('e: ', e)
+            console.log('id: ', id)
+            setUpdate(e.target.value, id)
+          }}
           onKeyDown={handleUpdatedDone}
           />
           :  <p>{note}</p>

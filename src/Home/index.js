@@ -1,17 +1,25 @@
 import Edit from "./components/Edit";
 import List from "./components/List";
 import "./index.css";
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 
 const Home = () => {
-  const newItem = JSON.parse(localStorage.getItem('id'));
+  const itemFromLocalStorage = localStorage.getItem('items')
+  let newItems
+  if (itemFromLocalStorage) {
+    newItems = JSON.parse(itemFromLocalStorage);
+  } else {
+    newItems = []
+  }
+  // const newItems = JSON.parse(localStorage.getItem('id') || '[]');
 
-  const [data, setData] = useState(newItem);
+  const [data, setData] = useState(newItems);
   
 
-  // useEffect(() => {     
-  //   localStorage.setItem(data.id, JSON.stringify(data));
-  // }, [data]);
+  useEffect(() => {     
+    console.log("data", data)
+    localStorage.setItem('items', JSON.stringify(data));
+  }, [data]);
 
   const setUpdate = (updatedNote, id) => {
     // update state
