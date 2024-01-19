@@ -1,44 +1,41 @@
 import React, { useState } from "react";
 
-const Item = ({ id, note, date, time, delData, setUpdate }) => {
+const Item = ({ id, note, date, time, setUpdate ,delData}) => {
 
-  // const [edit, setEdit] = useState(false);
   const [isEditMode, setEditMode] = useState(false)
+  const [updateInput, setUpdateInput] = useState(note);
+  // const editInputRef = useRef(null);
 
   const editItem = (id) => {
     setEditMode(!isEditMode)
   }
 
-
-  // useEffect(() => {     
-  //   localStorage.setItem(Item.id, JSON.stringify(Item));
-  // }, []);
-
   function handleUpdatedDone(event) {
     if (event.key === 'Enter') {
+      setUpdate(updateInput, id);
       setEditMode(false);
     }
   }
 
-  function delItem() {
-    delData(function (prev) {
-      return prev.filter((item) => item.id !== id);
-    });
-  }
+
+  // function delItem() {
+  //   delData(function (prev) {
+  //     return prev.filter((item) => item.id !== id);
+  //   });
+  // }
 
   return (
     <div className="item">
       <div>
         {
-          isEditMode ? <input defaultValue={note} 
+          isEditMode ? <input defaultValue={updateInput} 
+          // ref={editInputRef}
           onChange={(e) => {
-            console.log('e: ', e)
-            console.log('id: ', id)
-            setUpdate(e.target.value, id)
+            setUpdateInput(e.target.value)
           }}
           onKeyDown={handleUpdatedDone}
           />
-          :  <p>{note}</p>
+          :  <p>{updateInput}</p>
         }
       </div>
       <div>
@@ -46,9 +43,9 @@ const Item = ({ id, note, date, time, delData, setUpdate }) => {
       </div>
       <div>
       <button onClick={editItem} className="edit_btn">
-        Edit
+        EDIT
       </button>
-      <button onClick={delItem} className="del_btn">
+      <button onClick={() => delData(id)} className="del_btn">
         DELETE
       </button>
       </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import Item from "./Item";
 
-const List = ({ listData, delData, setUpdate }) => {
+const List = ({ listData, setUpdate, delData}) => {
   // console.log('listData ==> ', listData)
   return (
     <div>
@@ -14,8 +14,8 @@ const List = ({ listData, delData, setUpdate }) => {
             note={note}
             date={date}
             time={time}
-            delData={delData}     
-            setUpdate={setUpdate}      
+            delData ={delData}     
+            setUpdate={setUpdate}    
             />
         );
       })}

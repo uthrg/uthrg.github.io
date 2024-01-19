@@ -33,10 +33,15 @@ const Home = () => {
     );
   };
 
+  const delData = (id) => {
+      setData(data.filter(prev => prev.id !== id))
+  }
+  
+
   return (
     <div className="app">
       <Edit add={setData} />
-      <List listData={data} delData={setData} setUpdate={setUpdate}/>
+      <List listData={data} delData={delData} setUpdate={setUpdate}/>
     </div>
   );
 }; 

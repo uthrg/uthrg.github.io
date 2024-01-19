@@ -29,6 +29,9 @@ const Edit = ({ add }) => {
         ...prev,
       ];
     });
+    setNote("")
+    setDate("")
+    setTime("")
   }
 
   return (
