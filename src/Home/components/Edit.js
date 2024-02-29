@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { v4 } from 'uuid';
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:5500/";
+
 
 const Edit = ({ add }) => {
   const [note, setNote] = useState("");
@@ -18,21 +22,43 @@ const Edit = ({ add }) => {
   }
 
   function addItem() {
-    add(function (prev) {
-      return [
-        {
-          id: v4(),
-          note,
-          date,
-          time,
-        },
-        ...prev,
-      ];
-    });
-    setNote("")
-    setDate("")
-    setTime("")
+    const resp = axios.post("todos", {
+      id: v4(),
+      note: note,
+      date: date,
+      time: time,
+    })
+    .then((resp) => {
+      let dataLength = resp.data.data.length
+      console.log("data:", resp.data.data[dataLength-1])
+      add (function(prev) {
+        return [ resp.data.data[dataLength-1], ...prev ]
+      })
+    }
+    )
+
+  setNote("")
+  setDate("")
+  setTime("")
   }
+
+
+  // function addItem() {
+  //   add(function (prev) {
+  //     return [
+  //       {
+  //         id: v4(),
+  //         note,
+  //         date,
+  //         time,
+  //       },
+  //       ...prev,
+  //     ];
+  //   });
+  //   setNote("")
+  //   setDate("")
+  //   setTime("")
+  // }
 
   return (
     <div>

@@ -1,0 +1,39 @@
+version: "3"        ##Docker-compose版本
+
+services:           ##services/container
+### Main database ###########################################
+  postgres:
+    container_name: 'todos-postgres'      ##Host name/address
+    image: postgis/postgis:15-3.3-alpine    ##映像檔
+    platform: linux/amd64
+    volumes:
+      - db1-data:/var/lib/postgresql/data     ##PostgreSQL寫入資料位置  Host目錄：Container目錄
+    ports:
+      - 5432:5432     ## Host port:Container Port
+    environment:
+      - POSTGRES_DB=todo    ##database
+      - POSTGRES_USER=wei
+      - POSTGRES_PASSWORD=12345
+      - TZ=UTC
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+### postgres-client ################################################
+  postgres-client:
+    container_name: 'todos-pg-client'
+    image: dpage/pgadmin4
+    platform: linux/amd64
+    environment:
+      PGADMIN_DEFAULT_EMAIL: bear920430@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 12345
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+
+      
+volumes:
+  db1-data:
