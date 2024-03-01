@@ -6,14 +6,14 @@ const List = ({ listData, setUpdate, delData}) => {
   return (
     <div>
       {listData.map((item) => {
-        const { id, note, date, time } = item;
+        const { id, note } = item;
         return (
           <Item
             key={id}
             id={id}
             note={note}
-            date={date}
-            time={time}
+            // date={date}
+            // time={time}
             delData ={delData}     
             setUpdate={setUpdate}    
             />

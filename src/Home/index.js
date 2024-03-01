@@ -32,22 +32,20 @@ const Home = () => {
 
 
   //編輯 Update
-  const setUpdate = (updatedNote, id) => {
-    axios.put((`todos/${id}`), {
+  async function setUpdate (updatedNote, id) {
+    const resp= await axios.put((`todos/${id}`), {
       note: updatedNote
     })
-    .then(() => {
-      console.log("updatedNote:", updatedNote)
-      console.log("id:",id)
-      setData(
-        data.map((data) => {
-          if (data.id === id) {
-            data.note = updatedNote;
-          }
-          return data;
-        })
-        );
-    })
+    console.log("updatedNote:", updatedNote)
+    console.log("id:",id)
+    setData(
+      data.map((data) => {
+        if (data.id === id) {
+          data.note = updatedNote;
+        }
+        return data;
+      })
+      );
   };
 
   //刪除
@@ -58,15 +56,20 @@ const Home = () => {
   //   setShow(false)
   // }
 
-  const delData = (id) => {
+  async function delData (id) {
     // setShow(true);
-    axios.delete("/todos/:id")
-    .then (() => {
+    const resp = await axios.delete(`/todos/${id}`)
+    console.log(resp)
+    if(resp.data.success){
       setDeleteId(id);
-      console.log(id);
       setData(data.filter(prev => prev.id !== id))
     }
-    )
+    // .then (() => {
+    //   setDeleteId(id);
+    //   console.log(id);
+    //   setData(data.filter(prev => prev.id !== id))
+    // }
+    // )
   }
   
   // const handleDelItem = () => {

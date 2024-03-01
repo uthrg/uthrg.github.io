@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Item = ({ id, note, date, time, setUpdate ,delData}) => {
+const Item = ({ id, note, setUpdate ,delData}) => {
 
   const [isEditMode, setEditMode] = useState(false)
   const [updateInput, setUpdateInput] = useState(note);
@@ -38,9 +38,9 @@ const Item = ({ id, note, date, time, setUpdate ,delData}) => {
           :  <p>{updateInput}</p>
         }
       </div>
-      <div>
+      {/* <div>
         <p>{`${date} ${time}`}</p>
-      </div>
+      </div> */}
       <div>
       <button onClick={editItem} className="edit_btn">
         EDIT
