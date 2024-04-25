@@ -4,8 +4,9 @@ import "./index.css";
 import axios from "axios";
 
 import React, { useState, useEffect  } from "react";
+import { NavLink } from "react-router-dom";
 
-axios.defaults.baseURL = "http://localhost:5500/";
+axios.defaults.baseURL = "http://localhost:5500/api";
 
 const Home = () => {
   // const itemFromLocalStorage = localStorage.getItem('items')
@@ -80,6 +81,8 @@ const Home = () => {
     <div className="app">
       <Edit add={setData} />
       <List listData={data} delData={delData} setUpdate={setUpdate}/>
+      <li><NavLink exact to='/'>home</NavLink></li>
+      <li><NavLink to='/summary'>summary</NavLink></li>
     </div>
   );
 }; 
