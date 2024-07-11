@@ -17,6 +17,8 @@ app.get("/api", (req, res) => {
 
 app.get("/api/todos", async (req, res) => {
     try {
+        console.log(`The current process ID is ${process.pid}`);
+
         const todos = await pool.query("SELECT * FROM todo_list")
         res.json( todos.rows )
     }catch (error){
@@ -32,8 +34,6 @@ app.get("/api/todos/:id", async(req, res) => {
     }catch (error){
         res.json({ error })
     }
-    // let todo = todos.filter((todo) => todo.id == req.params.id)
-    // res.json({ msg: "Todo-1", data: todo })
 })
 
 app.post("/api/todos", async (req, res) => {
@@ -47,7 +47,6 @@ app.post("/api/todos", async (req, res) => {
     }catch (error){
         res.json({ error })
     }
-    // todos.push({ id:uuid.v4(), ...req.body })
 })
 
 app.put("/api/todos/:id", async(req, res) => {
@@ -61,15 +60,6 @@ app.put("/api/todos/:id", async(req, res) => {
     }catch (error){
         res.json({ error })
     }
-    // let todo = todos.find((todo) => todo.id == req.params.id);
-    // if (todo) {
-        // todo.note = req.body.note;
-        // todo.date = req.body.date;
-        // todo.time = req.body.time;
-    //     res.json({ msg: "Edit Data", data:todos })
-    // } else {
-    //     res.json({ msg:"Data Not Found" })
-    // }
 })
 
 app.delete("/api/todos/:id", async(req, res) => {
@@ -80,8 +70,6 @@ app.delete("/api/todos/:id", async(req, res) => {
     }catch (error){
         res.json({ error })
     }
-    // let index = todos.findIndex((todo) => todo.id == req.params.id)
-    // todos.splice(index, 1)
 })
 
 app.listen(Port, () => {

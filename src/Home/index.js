@@ -2,23 +2,14 @@ import Edit from "./components/Edit";
 import List from "./components/List";
 import "./index.css";
 import axios from "axios";
+import { VscAccount } from "react-icons/vsc";
 
 import React, { useState, useEffect  } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 axios.defaults.baseURL = "http://localhost:5500/api";
 
 const Home = () => {
-  // const itemFromLocalStorage = localStorage.getItem('items')
-  // let newItems
-  // if (itemFromLocalStorage) {
-  //   newItems = JSON.parse(itemFromLocalStorage);
-  // } else {
-  //   newItems = []
-  // }
-  // const newItems = JSON.parse(localStorage.getItem('id') || '[]');
-
-  // const [data, setData] = useState(newItems);
   const [data, setData] = useState([]);
 
   useEffect(() => {     
@@ -26,8 +17,6 @@ const Home = () => {
       console.log(resp.data);
       setData(resp.data)
     })
-    // console.log("data", data)
-    // localStorage.setItem('items', JSON.stringify(data));    //Json.stringify ->陣列改字串
   }, []);
 
 
@@ -51,11 +40,6 @@ const Home = () => {
 
   //刪除
   const [deleteId, setDeleteId] = useState("");
-  // const [show, setShow] = useState(false);
-
-  // const handleClose = () => {
-  //   setShow(false)
-  // }
 
   async function delData (id) {
     // setShow(true);
@@ -65,24 +49,27 @@ const Home = () => {
       setDeleteId(id);
       setData(data.filter(prev => prev.id !== id))
     }
-    // .then (() => {
-    //   setDeleteId(id);
-    //   console.log(id);
-    //   setData(data.filter(prev => prev.id !== id))
-    // }
-    // )
   }
+
+  function NavButton() {
+    const navigate = useNavigate();
   
-  // const handleDelItem = () => {
-  //   setData(data.filter(prev => prev.id !== deleteId))
-  // }
+    const handleClick = () => {
+      navigate('/login');
+    };
+  
+    return (
+        <VscAccount onClick={handleClick} className="login_icon"/>
+    );
+  }
 
   return (
     <div className="app">
+      <NavButton />
       <Edit add={setData} />
       <List listData={data} delData={delData} setUpdate={setUpdate}/>
-      <li><NavLink exact to='/'>home</NavLink></li>
-      <li><NavLink to='/summary'>summary</NavLink></li>
+      {/* <li><NavLink exact to='/'>home</NavLink></li>
+      <li><NavLink to='/summary'>summary</NavLink></li> */}
     </div>
   );
 }; 
